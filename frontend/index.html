@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borrow Container</title>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-align: center; padding: 20px; color: #333; }
+        h2 { margin-bottom: 20px; }
+        #status { margin-top: 20px; font-size: 18px; font-weight: bold; line-height: 1.5; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 30px; height: 30px; animation: spin 2s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .hidden { display: none; }
+        .btn { background: #06c755; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; margin-top: 20px; width: 80%; cursor: pointer; }
+        .btn-red { background: #ff4d4f; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-size: 16px; margin-top: 15px; width: 80%; cursor: pointer; }
+        .btn:active, .btn-red:active { opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <h2 id="title">Processing...</h2>
+    <div id="loader" class="loader"></div>
+    <div id="status">Initializing...</div>
+    
+    <button id="closeBtn" class="hidden btn" onclick="liff.closeWindow()">Close</button>
+    <button id="resetBtn" class="hidden btn-red">🔄 Return (Demo)</button>
+
+    <script>
+        // Im using Ngrok to do intranet penetration, empty here for Ngrok URL
+        const API_BASE_URL = ""; 
+        // LIFF ID
+        const MY_LIFF_ID = "{{ liff_id }}";
+
+        async function main() {
+            const statusDiv = document.getElementById('status');
+            const loader = document.getElementById('loader');
+            const closeBtn = document.getElementById('closeBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const title = document.getElementById('title');
+
+            let containerId = null;
+
+            try {
+                // debug: print URL -check parameter to console(BE)
+                console.log("Current URL:", window.location.href);
+                
+                // 1. try URL Search (?id=xxx) 
+                let urlParams = new URLSearchParams(window.location.search);
+                containerId = urlParams.get('containerId');
+
+                // 2. try URL Hash (#id=xxx) if 1 fail (LINE garbage feature)
+                if (!containerId && window.location.hash) {
+                    //  #search parameter?
+                    let hashParams = new URLSearchParams(window.location.hash.substring(1));
+                    containerId = hashParams.get('containerId');
+                }
+
+                // 3. init LIFF and check context is still not fixed (backup)
+                if (!containerId) {
+                    await liff.init({ liffId: MY_LIFF_ID });
+                    const context = liff.getContext();
+                } else {
+                    // init if find Id
+                    await liff.init({ liffId: MY_LIFF_ID });
+                }
+
+                if (!containerId) {
+                    // debug: output current URL
+                    throw new Error(`parameter: containerId not found<br><small style="color:black; font-weight:normal">当前链接: ${window.location.href}</small>`);
+                }
+
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                    return;
+                }
+
+                const profile = await liff.getProfile();
+                statusDiv.innerText = `User: ${profile.displayName}\nID: ${containerId}\nRegistering...`;
+
+                // API request
+                const response = await fetch(`${API_BASE_URL}/api/borrow`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        lineUserId: profile.userId,
+                        containerId: containerId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    title.innerText = "Done";
+                    statusDiv.innerHTML = "<span style='color:#06c755; font-size: 1.2em;'>Borrowed Successfully! ✅</span>";
+                } else {
+                    title.innerText = "Error";
+                    throw new Error(result.detail || "Server Error");
+                }
+
+            } catch (err) {
+                title.innerText = "Error";
+                // allow HTML tag to show debuggin  URL
+                statusDiv.innerHTML = `<span style='color:#ff4d4f'>${err.message}</span>`;
+            } finally {
+                loader.classList.add('hidden');
+                closeBtn.classList.remove('hidden');
+                
+                if (resetBtn && containerId) {
+                    resetBtn.classList.remove('hidden');
+                    resetBtn.onclick = async () => {
+                        if(!confirm("Reset status?")) return;
+                        resetBtn.innerText = "Resetting...";
+                        resetBtn.disabled = true;
+                        try {
+                            const res = await fetch(`${API_BASE_URL}/api/reset`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ containerId: containerId })
+                            });
+                            const data = await res.json();
+                            alert(data.message);
+                            liff.closeWindow();
+                        } catch (e) {
+                            alert("Failed");
+                            resetBtn.disabled = false;
+                        }
+                    };
+                }
+            }
+        }
+
+        main();
+    </script>
+</body>
+</html>
