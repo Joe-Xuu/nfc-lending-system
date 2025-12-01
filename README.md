@@ -1,4 +1,4 @@
-# NFC Container Lending System Nanoha
+# NFC Container Lending System for Nanoha
 
 A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **FastAPI**. Users can borrow reusable containers by scanning a QR code, which triggers a transaction recorded in the backend database.
 
