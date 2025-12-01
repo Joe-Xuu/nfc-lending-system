@@ -7,7 +7,7 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 * **Frontend**: HTML5, JavaScript (Vanilla), LINE LIFF SDK
 * **Backend**: Python, FastAPI
 * **Database**: SQLite (Local) / SQLAlchemy
-* **Tools**: Ngrok (for local tunneling)
+* **Tools**: Ngrok (for intranet penetration)
 
 ## 📂 Project Structure
 
@@ -20,47 +20,46 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 │   └── index.html       # LIFF User Interface
 ├── requirements.txt     # Python dependencies
 └── README.md
+```
 
 # Setup & Installation
 1. Clone the repository
 
-'''
-Bash
+```Bash
 git clone [https://github.com/YOUR_USERNAME/nfc-lending-system.git](https://github.com/YOUR_USERNAME/nfc-lending-system.git)
 cd nfc-lending-system
-'''
+```
 
 2. Set up Virtual Environment
 
 Bash
-'''
+```
 cd backend
 python3 -m venv venv
 source venv/bin/activate
-'''
+```
 
 3. Install Dependencies
 
-Bash
-'''
+```Bash
 pip install -r requirements.txt
-'''
+```
 
 4. Run the Server
 
-Bash
-'''
+
+```Bash
 uvicorn main:app --reload
-'''
+```
 
 5. Expose Localhost (Using Ngrok)
 
 In a separate terminal:
 
-Bash
-'''
+
+```Bash
 ngrok http 8000
-'''
+```
 
 # Configuration
 Copy the HTTPS URL from Ngrok (e.g., https://xxxx.ngrok-free.app).
@@ -74,10 +73,9 @@ Update MY_LIFF_ID in frontend/index.html with your actual LIFF ID.
 # Usage
 Generate a test QR code:
 
-Bash
-'''
+```Bash
 python backend/gen_qr.py
-'''
+```
 
 Scan the QR code with LINE App.
 
@@ -87,4 +85,4 @@ Click "Borrow".
 
 # License
 MIT
-2025. Designed & Made by Kouzen Jo
+Designed & Made by Kouzen Jo. 2025.
