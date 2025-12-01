@@ -32,8 +32,8 @@ cd nfc-lending-system
 
 2. Set up Virtual Environment
 
-Bash
-```
+
+```Bash
 cd backend
 python3 -m venv venv
 source venv/bin/activate
