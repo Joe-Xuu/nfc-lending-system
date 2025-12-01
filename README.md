@@ -9,7 +9,7 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 * **Database**: SQLite (Local) / SQLAlchemy
 * **Tools**: Ngrok (for intranet penetration)
 
-## 📂 Project Structure
+## Project Structure
 
 ```text
 .
