@@ -6,7 +6,7 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 
 * **Frontend**: HTML5, JavaScript (Vanilla), LINE LIFF SDK
 * **Backend**: Python, FastAPI
-* **Database**: SQLite (Local) / SQLAlchemy
+* **Database**: SQLite (Local) / SQLAlchemy - PostgreSQL (for production env)
 * **Tools**: Ngrok (for intranet penetration)
 
 ## Project Structure
@@ -19,7 +19,10 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 ├── frontend/
 │   └── index.html       # LIFF User Interface
 ├── requirements.txt     # Python dependencies
-└── README.md
+├── README.md
+├── requirements.md
+├── update-log.md
+└── LICENSE
 ```
 
 # Setup & Installation
@@ -45,14 +48,14 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Run the Server
+4. Run the Server - Change this step if you are using hosting services
 
 
 ```Bash
 uvicorn main:app --reload
 ```
 
-5. Expose Localhost (Using Ngrok)
+5. Expose Localhost (Using Ngrok) - Change this step if you are using hosting services
 
 In a separate terminal:
 
