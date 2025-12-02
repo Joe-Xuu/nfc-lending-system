@@ -16,11 +16,28 @@ import os
 load_dotenv()
 LIFF_ID = os.getenv("LIFF_ID")
 
-# 1. db set up
-SQLALCHEMY_DATABASE_URL = "sqlite:///./lending.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
+# 1. try to fetch DATABASE_URL from PATH (on cloud)
+# use local sqlite is not possible
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    # fix Render response URL bug (postgres:// -> postgresql://)
+    if DATABASE_URL.startswith("postgres://"):
+        DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+    SQLALCHEMY_DATABASE_URL = DATABASE_URL
+else:
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./lending.db"
+
+# 2. create Engine 
+connect_args = {}
+if "sqlite" in SQLALCHEMY_DATABASE_URL:
+    connect_args = {"check_same_thread": False}
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args=connect_args)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
+
 
 # 2. data model
 class Transaction(Base):
