@@ -66,7 +66,7 @@
 
                 if (!containerId) {
                     // debug: output current URL
-                    throw new Error(`parameter: containerId not found<br><small style="color:black; font-weight:normal">当前链接: ${window.location.href}</small>`);
+                    throw new Error(`parameter: containerId not found<br><small style="color:black; font-weight:normal">current URL: ${window.location.href}</small>`);
                 }
 
                 if (!liff.isLoggedIn()) {
@@ -91,7 +91,7 @@
 
                 if (response.ok) {
                     title.innerText = "Done";
-                    statusDiv.innerHTML = "<span style='color:#06c755; font-size: 1.2em;'>Borrowed Successfully! ✅</span>";
+                    statusDiv.innerHTML = `<span style='color:#06c755; font-size: 1.2em;'>${containerId} Borrowed Successfully! ✅</span>`;
                 } else {
                     title.innerText = "Error";
                     throw new Error(result.detail || "Server Error");
