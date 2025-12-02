@@ -1,11 +1,11 @@
 import qrcode
+import os
 
 # 1. LIFF ID get from env
 YOUR_LIFF_ID = os.getenv("LIFF_ID")
 
 if not YOUR_LIFF_ID:
-    print("LIFF_ID Not Found, go check .env file!")
-    exit()
+    YOUR_LIFF_ID = input("LIFF_ID Not Found, go check your .env file, or just input it here:")
 
 # 2.  random id
 CONTAINER_ID = input("Enter the target container ID:")
@@ -27,9 +27,9 @@ qr.make(fit=True)
 img = qr.make_image(fill='black', back_color='white')
 
 # save as png
-img.save("test_qr.png")
-print("QR code saved as test_qr.png")
+img.save(f"{CONTAINER_ID}.png")
+print(f"QR code saved as {CONTAINER_ID}.png")
 
 # show it if possible
 import os
-os.system("open test_qr.png")
+os.system(f"open {CONTAINER_ID}.png")
