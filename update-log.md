@@ -10,13 +10,10 @@
 # Update 12/2:
 1. UI design: WIP
 2. DB: we are using free postgreSQL DB hosted on render now - will expired in Jan テスト終わったら課金しよう(7ドル/月)
-
-Dashboard: render/VSCode extension
-
-External connection to DB: **hidden**
+    Dashboard: render/VSCode extension
+    External connection to DB: **hidden**
 3. internet deployment: Deployed on render now, end point URL: **hidden**
-
-Will go down if being inactive for 30 mins テスト終わったら課金しよう (同じく7ドル/月～)
+    Server will go down if being inactive for 30 mins テスト終わったら課金しよう (同じく7ドル/月～)
 4. Return device: WIP
 5. Line dev: WIP
 6. Git repository done
