@@ -8,7 +8,7 @@ if not YOUR_LIFF_ID:
     exit()
 
 # 2.  random id
-CONTAINER_ID = "TEST-001"
+CONTAINER_ID = input("Enter the target container ID:")
 
 # 3. URL
 target_url = f"https://liff.line.me/{YOUR_LIFF_ID}?containerId={CONTAINER_ID}"
