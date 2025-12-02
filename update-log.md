@@ -17,3 +17,10 @@
 4. Return device: WIP
 5. Line dev: WIP
 6. Git repository done
+
+# Action Item 12/2 Session with Touna
+1. Alarm for people not returning - we need chat bot UI 
+2. Return Box Design
+3. not returning mechanism: 
+    - Use chat bot last "borrowed successfully" message
+    - Use API message
