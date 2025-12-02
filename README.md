@@ -84,5 +84,6 @@ Click "Borrow".
 (Demo Mode) Click "Reset Status" to return the item.
 
 # License
-MIT
+MIT License
+
 Designed & Made by Kouzen Jo. 2025.
