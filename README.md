@@ -2,6 +2,8 @@
 
 A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **FastAPI**. Users can borrow reusable containers by scanning a QR code, which triggers a transaction recorded in the backend database.
 
+This project is planned to be depolyed as a on campus sustainability O2O service system.
+
 ## Tech Stack
 
 * **Frontend**: HTML5, JavaScript (Vanilla), LINE LIFF SDK
