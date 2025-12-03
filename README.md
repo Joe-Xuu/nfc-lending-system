@@ -29,7 +29,7 @@ A prototype O2O (Online-to-Offline) lending system using **LINE LIFF** and **Fas
 1. Clone the repository
 
 ```Bash
-git clone [https://github.com/YOUR_USERNAME/nfc-lending-system.git](https://github.com/YOUR_USERNAME/nfc-lending-system.git)
+git clone https://github.com/Joe-Xuu/nfc-lending-system.git
 cd nfc-lending-system
 ```
 
